@@ -1,4 +1,4 @@
-# ANADEF v2.1
+# ANADEF-Hokkaido
 
 **Alarm-based Nested-permutation Assessment of Dual-parameter Earthquake Forecasting**
 

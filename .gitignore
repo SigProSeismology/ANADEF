@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+.Python
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# LaTeX build products
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.synctex.gz
+
+# Large regenerable run products
+results/**/*.pdf
+results/**/*.png
+
+# Uncompressed catalogue (the .csv.gz is tracked)
+data/input/*.csv
+!data/input/*.csv.gz
+
+# Local DEM (not redistributed)
+data/gis/dem_*.tif

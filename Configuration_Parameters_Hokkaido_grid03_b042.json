@@ -1,0 +1,164 @@
+{
+ "Project": "ANADEF_Hokkaido",
+ "Version": "2.1.0",
+ "Description": "Grid-size sensitivity with the b-value neighbourhood scaled to the grid: 0.3 deg cells, 0.42 deg radius.",
+ "InputData": {
+  "csv_path": "data/input/Hokkaido_0-75km_2000-2023.csv.gz",
+  "output_dir": "results/output_hokkaido_grid03_b042",
+  "column_mapping": {
+   "longitude": [
+    "longitude"
+   ],
+   "latitude": [
+    "latitude"
+   ],
+   "magnitude": [
+    "mw_typecons"
+   ],
+   "time": [
+    "time"
+   ],
+   "depth": [
+    "depth"
+   ]
+  },
+  "drop_duplicates": true
+ },
+ "MagnitudeConversion": {
+  "apply": false,
+  "comment": "Magnitudes are already harmonised by Combine_Cats_select_Sapporro_v2.py (column Mw_typecons: Mv shifted by -0.1 onto the Md scale, Md = Mw within 0.005 for the 212 JMA-CMT pairs). 0.1 bins preserved.",
+  "slope": 1.0,
+  "intercept": 0.0,
+  "round_to_bin": false
+ },
+ "GridParameters": {
+  "grid_res": 0.3,
+  "lon_min": 139.9,
+  "lon_max": 147.4,
+  "lat_min": 41.0,
+  "lat_max": 46.2,
+  "cos_lat_weighting": true
+ },
+ "McParameters": {
+  "bin_width_mc": 0.1,
+  "fixed_mc": 3.0,
+  "comment": "fixed_mc is the completeness used for the ETAS fit and the mu / smoothed-seismicity fields (whole 0-75 km polygon; b vs cutoff flattens to within 0.05 above 3.0). The b map uses a cell-wise Mc: the lowest cutoff above which the local b stays flat over b_mc_plateau_bins successive 0.1 steps (tolerance max(b_mc_plateau_tol, 2.5 sigma_b)); cells with no plateau below b_mc_ceiling are undefined.",
+  "b_mc_mode": "cellwise",
+  "b_mc_floor": 1.5,
+  "b_mc_ceiling": 4.0,
+  "b_mc_plateau_bins": 6,
+  "b_mc_plateau_tol": 0.04,
+  "b_mc_margin": 0.0
+ },
+ "BValueParameters": {
+  "nearest_N": 100,
+  "min_events_for_b": 30,
+  "b_value_min": 0.2,
+  "b_value_max": 2.0,
+  "b_radius_deg": 0.42,
+  "fallback_max_radius_deg": 2.5,
+  "sigma_b_mask": 0.1,
+  "comment": "b neighbourhood radius scaled with the grid: 0.42 deg = 1.4 x cell size (0.7 deg at 0.5 deg cells). Fallback: 100 nearest within 2.5 deg, >= 30 events above the cell Mc."
+ },
+ "ETAS": {
+  "space_cut_deg": 1.0,
+  "time_cut_days": 4383,
+  "log_param_bounds": [
+   [
+    -12,
+    5
+   ],
+   [
+    -5,
+    2
+   ],
+   [
+    -12,
+    0
+   ],
+   [
+    -1.5,
+    1.5
+   ],
+   [
+    -12,
+    2
+   ],
+   [
+    -5,
+    3
+   ],
+   [
+    -12,
+    2
+   ],
+   [
+    -8,
+    5
+   ]
+  ],
+  "compute_standard_errors": true,
+  "bound_tolerance": 0.01,
+  "log_param_names": [
+   "log K",
+   "log alpha",
+   "log c [yr]",
+   "log p",
+   "log D [deg^2]",
+   "log (q-1)",
+   "log gamma",
+   "log mu0"
+  ]
+ },
+ "Declustering": {
+  "np_min_for_mu": 3,
+  "eps_min_deg": 0.02,
+  "max_iter_mu": 100,
+  "tol_mu": 0.0005
+ },
+ "AnalysisWindows": [
+  {
+   "train_start": "2000-01-01",
+   "train_end": "2011-12-31",
+   "forecast_start": "2012-01-01",
+   "forecast_end": "2023-12-31",
+   "is_calibration": true
+  },
+  {
+   "train_start": "2012-01-01",
+   "train_end": "2023-12-31",
+   "forecast_start": null,
+   "forecast_end": null,
+   "is_calibration": false
+  }
+ ],
+ "ForwardPredictions": [
+  {
+   "name": "2024-2030",
+   "train_start": "2012-01-01",
+   "train_end": "2023-12-31",
+   "forecast_start": "2024-01-01",
+   "forecast_end": "2030-12-31",
+   "threshold_source": "calibration",
+   "comment": "Alarm template valid 2024-2030, fields from 2012-2023 (catalogue ends 2023-12-31), thresholds frozen from the 2012-2023 retrospective calibration; not updated with 2024+ data."
+  }
+ ],
+ "ForecastEvaluation": {
+  "mag_thresholds": [
+   5.0,
+   5.5
+  ],
+  "mag_max": 9.0,
+  "calibration_magnitude": 5.0,
+  "quantile_steps": 99,
+  "fig4_mag_min": 5.0,
+  "fig4_mag_max": 6.0,
+  "fig4_mag_step": 0.1,
+  "bootstrap_iterations": 1000,
+  "bootstrap_mode": "cell",
+  "smoothed_seismicity_baseline": true,
+  "split_half_validation": true,
+  "permutation_iterations": 1000,
+  "random_seed": 42
+ }
+}

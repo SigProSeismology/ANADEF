@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the software and the paper."
+title: "ANADEF: Alarm-based Nested-permutation Assessment of Dual-parameter Earthquake Forecasting"
+version: 2.1.0
+abstract: >-
+  A protocol and open implementation for testing whether a secondary spatial predictor, here the
+  Gutenberg-Richter b-value field, adds forecasting information beyond the background seismicity rate.
+  Its central element is a nested permutation test in which the secondary threshold is re-optimised
+  inside every null realisation, so that the advantage conferred by threshold calibration enters the
+  null distribution instead of inflating the result.
+authors:
+  - family-names: Mohammadigheymasi
+    given-names: Hamzeh
+    affiliation: "University of Beira Interior, Portugal; AORI, The University of Tokyo, Japan"
+    email: hamzeh@ubi.pt
+  - family-names: Miri
+    given-names: Mahdi
+    affiliation: "Universita degli Studi di Napoli Federico II, Italy"
+  - family-names: Tavakolizadeh
+    given-names: Nasrin
+    affiliation: "University of Beira Interior, Portugal"
+  - family-names: Pombo
+    given-names: Nuno
+    affiliation: "University of Beira Interior, Portugal"
+license: MIT
+repository-code: "https://github.com/SigProSeismology/ANADEF"
+keywords:
+  - earthquake forecasting
+  - b-value
+  - ETAS
+  - permutation test
+  - Molchan diagram
+  - Hokkaido
